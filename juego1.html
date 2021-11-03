@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Juego Trivia2</title>
+</head>
+<body>
+    
+    <section class="juego-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <h1 class="text-center">Preguntas</h1>
+                    <div class="comenzar my-2" style="border: 1px solid red;">
+                        <button class="btn btn-primary" id="btn-comenzar">
+                            Comenzar!
+                        </button>
+                    </div>
+                    <div class="contenedor-preguntas" style="border: 1px solid green;">
+                        <div id="pregunta">
+                            <p>¿Cual pais es mas extenso?</p>
+                        </div>
+                        <div id="respuestas">
+                            <div>
+                                <input type="radio" name="respuesta" id="1" value = "Brasil">
+                                <label for="1">Brasil</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="respuesta" id="2" value = "Italia">
+                                <label for="1">Italia</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="respuesta" id="3" value = "Argentina">
+                                <label for="1">Argentina</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="respuesta" id="4" value = "Uruguay">
+                                <label for="1">Uruguay</label>
+                            </div>
+             
+                        </div>
+                    </div>
+                    <div class="controles my-2">
+                        <button class="btn btn-danger" id="btnVerificar">Verificar</button>
+                        <button class="btn btn-success" id="btnSiguiente" disabled>Siguiente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        let numPregunta = 0;
+        let contenedorPregunta = document.querySelector('#pregunta');
+        let contenedorRespuesta = document.querySelector('#respuestas');
+        let btnSiguiente = document.querySelector('#btnSiguiente');
+
+
+        const Preguntas = ['¿Quien gano el mundial de futbol 1994?','¿Quien es el padre de milo?','¿De que color es el cielo?','¿Como se llamaba San Martin?','¿A que hace referencia la senilidad?'];
+        const Respuestas = [
+            ['Brasil','Argentina','España','Italia'],
+            ['Maradona','Marley','Monzon','Cristina'],
+            ['Azul','Incoloro','Rojo','Celeste'],
+            ['Don Jose','Jose','Alfredo','Remedios'],
+            ['A un persona joven','A un niño','A un adulto','A un anciano']
+            ];
+
+        const RespuestasCorrectas = ['Brasil','Marley','Incoloro','Jose','A un anciano'];
+
+        function siguientePregunta(){
+
+            let pregunta = Preguntas[numPregunta];
+            contenedorPregunta.innerHTML = `<p>${pregunta}</p>`;
+
+            // ARMADO DE RESPUESTAS 
+            contenedorRespuesta.innerHTML = "";
+            // VARIABLE AUXILIAR
+            let i = 0;
+            Respuestas[numPregunta].forEach((respuesta) => {
+                let divRespuesta = document.createElement('div');
+                let labelRespuesta = document.createElement('label');
+                labelRespuesta.setAttribute('for',i);
+                labelRespuesta.innerText = respuesta
+                labelRespuesta.style.margin="0 .5rem";
+                let inputRespuesta = document.createElement('input');
+                inputRespuesta.setAttribute('id',i);
+                inputRespuesta.setAttribute('type','radio');
+                inputRespuesta.setAttribute('name','respuesta');
+                inputRespuesta.setAttribute('value',respuesta);
+                i++;
+
+                divRespuesta.appendChild(inputRespuesta);
+                divRespuesta.appendChild(labelRespuesta);
+                
+                contenedorRespuesta.append(divRespuesta);
+            })
+
+            
+                
+
+            numPregunta++;
+        }
+        btnSiguiente.addEventListener('click', (event) => {
+            event.preventDefault();
+            siguientePregunta();
+      
+        })
+        
+
+
+    </script>
+</body>
+</html>
